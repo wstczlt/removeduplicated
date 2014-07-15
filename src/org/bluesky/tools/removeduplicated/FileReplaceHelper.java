@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,7 +41,7 @@ public class FileReplaceHelper {
 			int lineNum = 0;
 			String line;
 			boolean find = false;
-			while ((line = readLine(reader)) != null) {
+			while ((line = IOUtils.readLine(reader)) != null) {
 				lineNum++;
 				String result = replaceLine(line, target, to, 0);
 				if (!result.equals(line)) {
@@ -97,24 +96,6 @@ public class FileReplaceHelper {
 			} else {
 				return replaceLine(line, target, to, end);
 			}
-		}
-	}
-
-	private static String readLine(Reader reader) throws IOException {
-		StringBuilder builder = new StringBuilder();
-		int val;
-		while ((val = reader.read()) != -1) {
-			char ch = (char) val;
-			if (ch != '\n') {
-				builder.append(ch);
-			} else {
-				return builder.append('\n').toString();
-			}
-		}
-		if (builder.length() == 0) {
-			return null;
-		} else {
-			return builder.toString();
 		}
 	}
 }
